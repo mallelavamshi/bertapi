@@ -15,11 +15,11 @@ COPY requirements.txt /code/requirements.txt
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-# Download spaCy model
-RUN python -m spacy download en_core_web_sm
+# Download spaCy model (FIXED - use direct pip install instead)
+RUN pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 
 # Download NLTK data
-RUN python -c "import nltk; nltk.download('punkt')"
+RUN python -c "import nltk; nltk.download('punkt', download_dir='/usr/local/share/nltk_data')"
 
 # Copy application code
 COPY ./app /code/app
